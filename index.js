@@ -1,5 +1,6 @@
 import * as Discord from "discord.js";
 import dotenv from 'dotenv'; 
+import express from "express"
 import fs from "fs/promises"
 
 const Client = new Discord.Client({
@@ -8,6 +9,8 @@ const Client = new Discord.Client({
 dotenv.config()
 Client.commands = new Discord.Collection();
 const REST = new Discord.REST().setToken(process.env.TOKEN);
+const app = express();
+const port = process.env.PORT || 3000;
 
 async function loadCommands() {
     try {
@@ -57,3 +60,12 @@ const initialize = async () => {
 
 Client.login(process.env.OAUTH_TOKEN)
 initialize()
+
+app.get('/', (req, res) => {
+    res.send('Bot de Discord está corriendo!');
+  });
+  
+app.listen(port, () => {
+    console.log(`Bot de Discord está corriendo en el puerto ${port}`);
+});
+
