@@ -8,9 +8,9 @@ export default async function loadCommands(Client) {
       const __dirname = dirname(__filename);
       const commandPath = join(__dirname, '..', 'slash_commands');
       const commandFiles = await fs.readdir(commandPath);
-  
+
       for (const commandFile of commandFiles) {
-        const filePath = pathToFileURL(`${commandPath}\\${commandFile}`).href;
+        const filePath = pathToFileURL(join(commandPath, commandFile)).href;
         const command = await import(filePath);
         Client.commands.set(command.command.data.name, command.command);
       }
