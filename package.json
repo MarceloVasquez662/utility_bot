@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-      "build": "robocopy src dist /E"
+      "build": "cp -R src/* dist/"
   },
   "keywords": [],
   "author": "",
