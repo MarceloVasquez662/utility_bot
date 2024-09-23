@@ -1,0 +1,11 @@
+{
+    "inferno_t": {
+        "smokes": {
+            "ct": {
+                "smoke": "https://imgur.com/GUaDRyq",
+                "description": "Solo lanzalo"
+            }
+        },
+        "map_label" : "Inferno Lado T"
+    }
+}

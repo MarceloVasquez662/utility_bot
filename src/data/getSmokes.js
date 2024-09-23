@@ -1,19 +1,15 @@
-import fetch from 'node-fetch';
-import dotenv from 'dotenv'; 
-
-dotenv.config()
+import { readFile } from 'fs/promises';
+import { dirname, join} from 'path';
+import { fileURLToPath } from 'url';
 
 export default async function getSmokes(){
-    const url = process.env.URL_JSON;
-
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Error en la red');
-        }
-        const data = await response.json();
-        return data;
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = dirname(__filename);
+        const jsonPath = join(__dirname, '..', 'data/smokes.json');
+        const data = await readFile(jsonPath);
+        return JSON.parse(data);
     } catch (error) {
-        console.error('Error al obtener el JSON:', error);
+        console.error('Error reading the JSON file:', error);
     }
-};
+}

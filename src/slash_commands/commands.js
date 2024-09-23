@@ -3,7 +3,14 @@ import getSmokes from "../data/getSmokes.js";
 import smokeExecutable from "../executables/smoke.js"; 
 
 const smokes = await getSmokes();
-const maps = Object.keys(smokes)
+const mapNames = Object.keys(smokes)
+let mapGroup = []
+
+mapNames.map(mapName => { 
+    let mapLabel = smokes[mapName].map_label
+    let map = mapName
+    mapGroup.push({name: mapLabel, value: map})
+})
 
 export const command = {
     data: new SlashCommandBuilder()
@@ -13,17 +20,12 @@ export const command = {
             map.setName('map')
                 .setDescription('Elige el mapa')
                 .setRequired(true)
-                .addChoices(
-                    maps.map(map => ({ 
-                        name: map, value: map
-                    }))
-                ))
+                .addChoices(mapGroup))
         .addStringOption(zone =>
             zone.setName('zone')
                 .setDescription('Elige una zona')
                 .setAutocomplete(true)
-                .setRequired(true)
-        ),
+                .setRequired(true)),
     
     async execute(interaction) {
         const map = interaction.options.getString('map');
@@ -37,7 +39,7 @@ export const command = {
         const focusedValue = interaction.options.getFocused();
         let zones = [];
 
-        Object.keys(smokes[selectedMap]).forEach(zone => {
+        Object.keys(smokes[selectedMap].smokes).forEach(zone => {
             zones.push({ name: zone, value: zone });
         });
 
