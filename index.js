@@ -7,9 +7,9 @@ import "./src/utils/expressSetup.js"
 const Client = new Discord.Client({
     intents: 3276799,
 })
+dotenv.config()
 Client.commands = new Discord.Collection();
 const REST = new Discord.REST().setToken(process.env.TOKEN);
-dotenv.config()
 
 Client.on('interactionCreate', async (interaction) => {
     

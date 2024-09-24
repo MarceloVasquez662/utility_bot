@@ -1,7 +1,4 @@
 import fetch from 'node-fetch';
-import dotenv from 'dotenv'; 
-
-dotenv.config()
 
 export default function reloadWebsite() {
     fetch(process.env.AUTOHOST)

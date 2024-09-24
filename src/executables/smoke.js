@@ -1,16 +1,14 @@
-import getSmokes from "../data/getSmokes.js";
+import getVideoInformation from "../data/getVideoInformation.js"
 
-export default async function smokeExecutable(interaction, selectedMap, zone){
-        const smokesData = await getSmokes()
-        const {smoke, description} = smokesData[selectedMap].smokes[zone]
-        const mapName = smokesData[selectedMap].map_label
+export default async function smokeExecutable(interaction, videoId){
+        const smokeData = await getVideoInformation(videoId)
 
-        if(undefined === smoke) {
+        if(undefined === smokeData || null === smokeData) {
             interaction.reply(`No seleccionaste un humo valido 🙉`);
         } else {
             interaction.reply(
-            `🚀 Aqui va tu smoke de ${mapName} - ${zone}
-📋 Descripción: ${description}    
-📷 Imagen de referencia: ${smoke}`);
+            `🚀 Aqui va tu smoke
+📋 Descripción: ${smokeData.description}    
+📷 Video de referencia: ${smokeData.url}`);
         }
 };

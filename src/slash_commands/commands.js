@@ -1,13 +1,16 @@
 import {SlashCommandBuilder} from "discord.js";
-import getSmokes from "../data/getSmokes.js";
+import getMaps from "../data/getMaps.js";
+import getSmokesByMap from "../data/getSmokesByMap.js"
 import smokeExecutable from "../executables/smoke.js"; 
 
-const smokes = await getSmokes();
-const mapNames = Object.keys(smokes)
+const mapNames = await getMaps();
 let mapGroup = []
 
 mapNames.map(mapName => { 
-    let mapLabel = smokes[mapName].map_label
+    let mapLabel = mapName
+        .split('.')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
     let map = mapName
     mapGroup.push({name: mapLabel, value: map})
 })
@@ -28,24 +31,16 @@ export const command = {
                 .setRequired(true)),
     
     async execute(interaction) {
-        const map = interaction.options.getString('map');
-        const zone = interaction.options.getString('zone');
-
-        await smokeExecutable(interaction, map, zone);
+        const videoId = interaction.options.getString('zone');
+        await smokeExecutable(interaction, videoId);
     },
 
     async autocomplete(interaction) {
         const selectedMap = interaction.options.getString('map');
-        const focusedValue = interaction.options.getFocused();
-        let zones = [];
+        let zones = await getSmokesByMap(selectedMap);
 
-        Object.keys(smokes[selectedMap].smokes).forEach(zone => {
-            zones.push({ name: zone, value: zone });
-        });
-
-        const filtered = zones.filter(zone => zone.name.startsWith(focusedValue));
         await interaction.respond(
-            filtered.map(zone => ({ name: zone.name, value: zone.value }))
+            zones.map(zone => ({ name: zone.name, value: zone.videoId }))
         );
     }
 };
