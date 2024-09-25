@@ -22,11 +22,11 @@ export default async function getMaps() {
       return;
     }
 
-    const maps = videos.map((video) => {
+    const maps = [...new Set(videos.map((video) => {
       const title = video.snippet.title;
       const [map] = title.split('-');
       return map.trim();
-    });
+    }))];
 
     return maps
   } catch (error) {
