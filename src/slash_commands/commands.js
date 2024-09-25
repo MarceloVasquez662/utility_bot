@@ -14,6 +14,7 @@ mapNames.map(mapName => {
     let map = mapName
     mapGroup.push({name: mapLabel, value: map})
 })
+mapGroup.sort((a, b) => a.name.localeCompare(b.name));
 
 export const command = {
     data: new SlashCommandBuilder()
