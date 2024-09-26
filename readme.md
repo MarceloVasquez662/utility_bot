@@ -1,4 +1,4 @@
-# Counter-Strike 2 YouTube Bot
+# Counter-Strike Guatones Team Utility Bot
 
 Este bot de Discord está diseñado para buscar y enviar videos de YouTube relacionados con Counter-Strike 2. Los usuarios pueden utilizar comandos específicos para encontrar utilidades de los mapas.
 
