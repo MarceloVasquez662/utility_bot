@@ -44,7 +44,7 @@ const initialize = async () => {
     }
 };
 
-Client.login(process.env.OAUTH_TOKEN)
+Client.login(process.env.TOKEN)
 
 initialize()
 setInterval(() => reloadWebsite(), process.env.AUTORELOAD_INTERVAL);
