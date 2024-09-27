@@ -37,11 +37,21 @@ export const command = {
     },
 
     async autocomplete(interaction) {
-        const selectedMap = interaction.options.getString('map');
-        let zones = await getSmokesByMap(selectedMap);
+        try {
+            const selectedMap = interaction.options.getString('map');
+            const letterToFilterVideo = interaction.options.getString('zone');
+            let zones = await getSmokesByMap(selectedMap);
 
-        await interaction.respond(
-            zones.map(zone => ({ name: zone.name, value: zone.videoId }))
-        );
+            const zonesFiltered = zones
+                .filter(zone => zone.name.toLowerCase().includes(letterToFilterVideo.toLowerCase()))
+                .map(zone => ({
+                    name: zone.name,                
+                    value: String(zone.videoId)
+                }))
+
+            await interaction.respond(zonesFiltered.length == 0 ? zones:zonesFiltered);
+        } catch(error) {
+            console.log("Error " + error)
+        }
     }
 };

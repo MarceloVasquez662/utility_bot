@@ -13,19 +13,15 @@ const REST = new Discord.REST().setToken(process.env.TOKEN);
 
 Client.on('interactionCreate', async (interaction) => {
     
-     if (interaction.isCommand()) {
-        const command = Client.commands.get(interaction.commandName);
-        
+    const command = Client.commands.get(interaction.commandName);
+    
+    if (interaction.isCommand()) {
         if (!command) return;
-
         await command.execute(interaction);
     }
 
     if (interaction.isAutocomplete()) {
-        const command = Client.commands.get(interaction.commandName);
-
         if (!command) return;
-
         await command.autocomplete(interaction);
     }
 });
