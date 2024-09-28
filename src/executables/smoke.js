@@ -6,10 +6,9 @@ export default async function smokeExecutable(interaction, videoId){
         if(undefined === smokeData || null === smokeData) {
             interaction.reply({content: `No seleccionaste un humo valido 🙉`, ephemeral: true });
         } else {
-            interaction.reply({content:
+            interaction.reply(
             `🚀 Aqui va tu smoke
 📋 Descripción: ${smokeData.description}    
-📷 Video de referencia: ${smokeData.url}`,
- ephemeral: true});
+📷 Video de referencia: ${smokeData.url}`);
         }
 };
