@@ -1,7 +1,7 @@
 import {SlashCommandBuilder} from "discord.js";
-import getMaps from "../data/getSmokeMaps.js";
-import getSmokesByMap from "../data/getSmokesByMap.js"
-import smokeExecutable from "../executables/smoke.js"; 
+import getMaps from "../data/getMoloMaps.js";
+import getMolosByMap from "../data/getMolosByMap.js"
+import moloExecutable from "../executables/molo.js"; 
 
 const mapNames = await getMaps();
 let mapGroup = []
@@ -18,8 +18,8 @@ mapGroup.sort((a, b) => a.name.localeCompare(b.name));
 
 export const command = {
     data: new SlashCommandBuilder()
-        .setName("smoke")
-        .setDescription("Genera ahora tu smoke")
+        .setName("molo")
+        .setDescription("Genera ahora tu molo")
         .addStringOption(map =>
             map.setName('map')
                 .setDescription('Elige el mapa')
@@ -33,14 +33,14 @@ export const command = {
     
     async execute(interaction) {
         const videoId = interaction.options.getString('zone');
-        await smokeExecutable(interaction, videoId);
+        await moloExecutable(interaction, videoId);
     },
 
     async autocomplete(interaction) {
         try {
             const selectedMap = interaction.options.getString('map');
             const letterToFilterVideo = interaction.options.getString('zone');
-            let zones = await getSmokesByMap(selectedMap);
+            let zones = await getMolosByMap(selectedMap);
 
             const zonesFiltered = zones
                 .filter(zone => zone.name.toLowerCase().includes(letterToFilterVideo.toLowerCase()))
